@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-    internal class CustomerVM
+    public class CustomerVM
     {
+        public string CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public string Segment { get; set; }
     }
 }

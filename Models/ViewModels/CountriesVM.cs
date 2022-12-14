@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-    internal class CountriesVM
+    public class CountriesVM
     {
+        public string CountryName { get; set; }
     }
 }
