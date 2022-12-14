@@ -27,8 +27,8 @@ namespace Global_Superstore_ApiProject.Controllers
         [HttpGet("get-areas-by-id/{id}")]
         public IActionResult GetAreasById(int id)
         {
-            var area = _areaService.GetAllAreas();
-            return Ok(area);
+            var areas = _areaService.GetAreaById(id);
+            return Ok(areas);
         }
 
 
@@ -41,14 +41,14 @@ namespace Global_Superstore_ApiProject.Controllers
 
 
         [HttpPut("update-area-by-id/{id}")]
-        public IActionResult UpdateById(int id, [FromBody] AreaVM area)
+        public IActionResult UpdateAreaById(int id, [FromBody] AreaVM area)
         {
             var updateArea = _areaService.UpdateAreaById(id, area);
             return Ok(updateArea);
         }
 
 
-        [HttpDelete("delete-by-id/{id}")]
+        [HttpDelete("delete-areas-by-id/{id}")]
         public IActionResult DeleteAreaById(int id)
         {
             _areaService.DeleteAreaById(id);

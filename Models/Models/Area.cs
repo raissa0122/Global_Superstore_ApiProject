@@ -1,14 +1,24 @@
 ﻿
+using CsvHelper.Configuration.Attributes;
 using System.Collections.Generic;
+using CsvHelper.Configuration;
 
 namespace Models
 {
     public class Area
     {
         public int Id { get; set; }
+
+        [Name("City")]
         public string Sity { get; set; }
+
+        [Name("State")]
         public string State { get; set; }
-        public int PostCode { get; set; }
+
+        [Name("PostalCode")]
+        public string PostCode { get; set; }
+
+        [Name("Market")]
         public string Market { get; set; }
 
         public List<Customer> Customer { get; set; }

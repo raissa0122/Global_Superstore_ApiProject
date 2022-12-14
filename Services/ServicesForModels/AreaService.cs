@@ -47,7 +47,6 @@ namespace Services.ServicesForModels
                 _area.State = area.State;
                 _area.PostCode = area.PostCode;
                 _area.Market = area.Market;
-
                 _context.SaveChanges();
             }
             return _area;   
@@ -56,7 +55,7 @@ namespace Services.ServicesForModels
         //Delete
         public void DeleteAreaById(int areaId)
         {
-            var _area = _context.Areas.First(n => n.Id == areaId);
+            var _area = _context.Areas.FirstOrDefault(n => n.Id == areaId);
             if(_area != null)
             {
                 _context.Areas.Remove(_area);

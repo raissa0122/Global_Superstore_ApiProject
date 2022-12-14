@@ -10,7 +10,7 @@ namespace Models.ViewModels
     {
         public string Sity { get; set; }
         public string State { get; set; }
-        public int PostCode { get; set; }
+        public string PostCode { get; set; }
         public string Market { get; set; }
     }
 }
