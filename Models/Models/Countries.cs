@@ -6,7 +6,7 @@
         public string CountryName { get; set; }
 
 
-        public Continents Continents { get; set; }
+        public Continent Continents { get; set; }
 
 
         public Area Area { get; set; }

@@ -16,7 +16,7 @@ namespace Data
         }
 
         public DbSet<Area> Areas { get; set; }
-        public DbSet<Continents> Continents { get; set; }
+        public DbSet<Continent> Continents { get; set; }
         public DbSet<Countries> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }

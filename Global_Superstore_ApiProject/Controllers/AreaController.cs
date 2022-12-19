@@ -1,9 +1,15 @@
-﻿using Data;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.ViewModels;
 using Services.ServicesForModels;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace Global_Superstore_ApiProject.Controllers
 {
@@ -31,6 +37,34 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(areas);
         }
 
+        [HttpPost("add-all-areas-toDb")]
+        public IActionResult SaveAreasToDb()
+        {
+            String filePath = @"C:\Files\Global_Superstore2.csv";
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ","
+            };
+            //07.12.22г.
+            using (StreamReader streamReader = new StreamReader(filePath))
+            using (var csvReader = new CsvReader(streamReader, config))
+            {
+                var records = csvReader.GetRecords<AllTablesModel>().ToList();
+
+                records.ForEach(delegate (AllTablesModel currentResult)
+                {
+                    Area area = new Area();
+                    area.Sity = currentResult.City;
+                    area.State = currentResult.State;
+                    area.PostCode = currentResult.PostalCode;
+                    area.Market = currentResult.Market;
+
+                    _areaService.AddArea(area);
+                });
+            }
+            return Ok();
+        }
 
         [HttpPost("add-area")]
         public IActionResult AddArea([FromBody]Area area)

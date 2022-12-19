@@ -11,5 +11,7 @@ namespace Services.Interfaces
     public interface ICsvService
     {
         public List<Area> ReadAreasFromFile(string filename);
+        public List<Continent> ReadContinentsFromFile(string filename);
+
     }
 }

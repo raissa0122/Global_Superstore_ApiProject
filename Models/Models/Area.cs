@@ -2,6 +2,7 @@
 using CsvHelper.Configuration.Attributes;
 using System.Collections.Generic;
 using CsvHelper.Configuration;
+using System;
 
 namespace Models
 {
@@ -19,7 +20,7 @@ namespace Models
         public string PostCode { get; set; }
 
         [Name("Market")]
-        public string Market { get; set; }
+        public string Market { get; set; } 
 
         public List<Customer> Customer { get; set; }
 

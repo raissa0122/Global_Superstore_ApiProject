@@ -34,11 +34,16 @@ namespace Global_Superstore_ApiProject
         {
 
             services.AddControllers();
+            services.AddTransient<AreaService>();
+            services.AddTransient<ContinentService>();
+
 
             //Configure DBContext with SQL
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
             //Configure the Services
             services.AddTransient<AreaService>();
+            services.AddTransient<ContinentService>();
 
             services.AddSwaggerGen(c =>
             {

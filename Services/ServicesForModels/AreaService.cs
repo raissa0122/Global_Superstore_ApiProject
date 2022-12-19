@@ -12,7 +12,7 @@ namespace Services.ServicesForModels
     public class AreaService
     {
         private AppDbContext _context;
-        public AreaService(AppDbContext context)
+       public AreaService(AppDbContext context)
         {
 
             _context = context;
@@ -34,6 +34,7 @@ namespace Services.ServicesForModels
 
         //GetAll
         public List<Area> GetAllAreas() => _context.Areas.ToList();
+
         //GetById
         public Area GetAreaById(int areaId) => _context.Areas.FirstOrDefault(n => n.Id == areaId);
         
