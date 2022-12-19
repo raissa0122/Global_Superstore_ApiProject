@@ -2,8 +2,6 @@
 using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.ViewModels;
 using Services.ServicesForModels;
@@ -11,7 +9,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 namespace Global_Superstore_ApiProject.Controllers
 {
     [Route("api/[controller]")]
@@ -35,10 +32,12 @@ namespace Global_Superstore_ApiProject.Controllers
         [HttpGet("get-continents-by-id/{id}")]
         public IActionResult GetContinentsById(int id)
         {
-            var continent = _continentService.GetContinentsById(id);
-            return Ok(continent);
+            var continents = _continentService.GetContinentsById(id);
+            return Ok(continents);
         }
 
+
+        //premesti nqkade
         [HttpPost("add-all-continents-toDb")]
         public IActionResult SaveContinentsToDb()
         {
@@ -64,6 +63,8 @@ namespace Global_Superstore_ApiProject.Controllers
             }
             return Ok();
         }
+
+
 
         [HttpPost("add-continent")]
         public IActionResult AddContinent([FromBody] Continent continent)
