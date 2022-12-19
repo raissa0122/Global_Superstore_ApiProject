@@ -54,5 +54,26 @@ namespace Services
 
 
         }
+
+        public List<Country> ReadCountriesFromFile(string filename)
+        {
+            String resultOfLine;
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ","
+            };
+
+            using (StreamReader streamReader = new StreamReader(filename))
+            // using (var reader = new StreamReader(@"C:\Users\Raissa\source\repos\Global_Superstore_ApiProject\Services\bin\Debug\net5.0\Files\Global_Superstore2.csv"))
+            using (var csvReader = new CsvReader(streamReader, config))
+            {
+                var records = csvReader.GetRecords<Country>().ToList();
+                return records;
+            }
+
+
+        }
+
     }
 }

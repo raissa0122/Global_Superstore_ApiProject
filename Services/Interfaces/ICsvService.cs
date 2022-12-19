@@ -12,6 +12,8 @@ namespace Services.Interfaces
     {
         public List<Area> ReadAreasFromFile(string filename);
         public List<Continent> ReadContinentsFromFile(string filename);
+        public List<Country> ReadCountriesFromFile(string filename);
+
 
     }
 }

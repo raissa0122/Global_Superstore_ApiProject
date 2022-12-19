@@ -24,6 +24,6 @@ namespace Models
 
         public List<Customer> Customer { get; set; }
 
-        public ICollection<Countries> Countries { get; set; }
+        public ICollection<Country> Countries { get; set; }
     }
 }

@@ -36,6 +36,8 @@ namespace Global_Superstore_ApiProject
             services.AddControllers();
             services.AddTransient<AreaService>();
             services.AddTransient<ContinentService>();
+            services.AddTransient<CountryService>();
+
 
 
             //Configure DBContext with SQL
@@ -44,6 +46,8 @@ namespace Global_Superstore_ApiProject
             //Configure the Services
             services.AddTransient<AreaService>();
             services.AddTransient<ContinentService>();
+            services.AddTransient<CountryService>();
+
 
             services.AddSwaggerGen(c =>
             {

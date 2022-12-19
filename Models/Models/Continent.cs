@@ -10,7 +10,7 @@ namespace Models
         [Name("Region")]
         public string ContinentName { get; set; }
 
-        public List<Countries> Countries { get; set; }
+        public List<Country> Countries { get; set; }
 
     }
 }
