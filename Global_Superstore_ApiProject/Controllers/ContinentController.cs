@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -38,7 +39,7 @@ namespace Global_Superstore_ApiProject.Controllers
 
 
         //premesti nqkade
-        [HttpPost("add-all-continents-toDb")]
+      /*  [HttpPost("add-all-continents-toDb")]
         public IActionResult SaveContinentsToDb()
         {
             String filePath = @"C:\Files\Global_Superstore2.csv";
@@ -62,7 +63,7 @@ namespace Global_Superstore_ApiProject.Controllers
                 });
             }
             return Ok();
-        }
+        }*/
 
 
 

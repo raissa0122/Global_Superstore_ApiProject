@@ -1,8 +1,12 @@
-﻿using Data;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using Data;
 using Models;
 using Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +22,29 @@ namespace Services.ServicesForModels
             _context = context;
         }
 
+        
+        public void SaveContinentsToDb()
+        {
+            String filePath = @"C:\Files\Global_Superstore2.csv";
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ","
+            };
+            //07.12.22г.
+            using (StreamReader streamReader = new StreamReader(filePath))
+            using (var csvReader = new CsvReader(streamReader, config))
+            {
+                var records = csvReader.GetRecords<AllTablesModel>().ToList();
+
+                records.ForEach(delegate (AllTablesModel currentResult)
+                {
+                    Continent continent = new Continent();
+                    continent.ContinentName = currentResult.Region;
+
+                });
+            }
+        }
 
         public void AddContinent (Continent continent)
         {

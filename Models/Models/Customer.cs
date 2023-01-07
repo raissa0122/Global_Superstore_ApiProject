@@ -11,8 +11,8 @@ namespace Models
         public string Segment { get; set; }
 
 
-        public Area Areas { get; set; }
+       // public Area Areas { get; set; }
 
-        public List<Sales> Sales { get; set; }
+       // public List<Order> Orders { get; set; }
     }
 }

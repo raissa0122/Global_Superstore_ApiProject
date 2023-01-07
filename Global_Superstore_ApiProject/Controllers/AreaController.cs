@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -17,10 +18,12 @@ namespace Global_Superstore_ApiProject.Controllers
     public class AreaController : ControllerBase
     {
         public AreaService _areaService;
+        private AppDbContext _context;
 
-        public AreaController(AreaService areaService)
+        public AreaController(AreaService areaService, AppDbContext context)
         {
             _areaService = areaService;
+            _context = context; 
         }
 
         [HttpGet("get-all-areas")]
@@ -29,6 +32,7 @@ namespace Global_Superstore_ApiProject.Controllers
             var allAreas = _areaService.GetAllAreas();
             return Ok(allAreas);
         }
+
         [HttpGet("get-areas-by-id/{id}")]
         public IActionResult GetAreasById(int id)
         {
@@ -36,7 +40,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(areas);
         }
 
-        [HttpPost("add-all-areas-toDb")]
+     /*   [HttpPost("add-all-areas-toDb")]
         public IActionResult SaveAreasToDb()
         {
             String filePath = @"C:\Files\Global_Superstore2.csv";
@@ -63,7 +67,7 @@ namespace Global_Superstore_ApiProject.Controllers
                 });
             }
             return Ok();
-        }
+        }*/
 
         [HttpPost("add-area")]
         public IActionResult AddArea([FromBody]Area area)

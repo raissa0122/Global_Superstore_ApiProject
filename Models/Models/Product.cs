@@ -10,7 +10,7 @@ namespace Models
         public string SubCategory { get; set; }
         public string ProductID { get; set; }
 
-        public List<Sales> Sales { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }

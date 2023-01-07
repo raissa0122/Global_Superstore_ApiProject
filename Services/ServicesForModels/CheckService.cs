@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Services.ServicesForModels
 {
-    public class SalesSevice
+    public class CheckService
     {
+
     }
 }

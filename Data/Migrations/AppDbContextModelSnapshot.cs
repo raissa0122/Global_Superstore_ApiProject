@@ -26,10 +26,25 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ContinentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Market")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PostCode")
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("Sity")
@@ -40,17 +55,21 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId")
+                        .IsUnique()
+                        .HasFilter("[CountryId] IS NOT NULL");
+
                     b.ToTable("Areas");
                 });
 
-            modelBuilder.Entity("Models.Continents", b =>
+            modelBuilder.Entity("Models.Continent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ContinentsName")
+                    b.Property<string>("ContinentName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -58,25 +77,20 @@ namespace Data.Migrations
                     b.ToTable("Continents");
                 });
 
-            modelBuilder.Entity("Models.Countries", b =>
+            modelBuilder.Entity("Models.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AreaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContinentsId")
+                    b.Property<int?>("ContinentsId")
                         .HasColumnType("int");
 
                     b.Property<string>("CountryName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AreaId");
 
                     b.HasIndex("ContinentsId");
 
@@ -90,8 +104,8 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AreasId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
@@ -101,9 +115,54 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AreasId");
-
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Discount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderPriority")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Profit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SalesCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShipDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShipMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShippingCost")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Models.Product", b =>
@@ -114,6 +173,9 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
@@ -127,103 +189,42 @@ namespace Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Models.Sales", b =>
+            modelBuilder.Entity("Models.Area", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderPriority")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Profit")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SalesCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShippingCost")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Sales");
+                    b.HasOne("Models.Country", null)
+                        .WithOne("Area")
+                        .HasForeignKey("Models.Area", "CountryId");
                 });
 
-            modelBuilder.Entity("Models.Countries", b =>
+            modelBuilder.Entity("Models.Country", b =>
                 {
-                    b.HasOne("Models.Area", "Area")
+                    b.HasOne("Models.Continent", "Continents")
                         .WithMany("Countries")
-                        .HasForeignKey("AreaId");
-
-                    b.HasOne("Models.Continents", "Continents")
-                        .WithMany("Countries")
-                        .HasForeignKey("ContinentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Area");
+                        .HasForeignKey("ContinentsId");
 
                     b.Navigation("Continents");
                 });
 
-            modelBuilder.Entity("Models.Customer", b =>
+            modelBuilder.Entity("Models.Order", b =>
                 {
-                    b.HasOne("Models.Area", "Areas")
-                        .WithMany("Customer")
-                        .HasForeignKey("AreasId");
-
-                    b.Navigation("Areas");
-                });
-
-            modelBuilder.Entity("Models.Sales", b =>
-                {
-                    b.HasOne("Models.Customer", null)
-                        .WithMany("Sales")
-                        .HasForeignKey("CustomerId");
-
                     b.HasOne("Models.Product", null)
-                        .WithMany("Sales")
+                        .WithMany("Orders")
                         .HasForeignKey("ProductId");
                 });
 
-            modelBuilder.Entity("Models.Area", b =>
-                {
-                    b.Navigation("Countries");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Models.Continents", b =>
+            modelBuilder.Entity("Models.Continent", b =>
                 {
                     b.Navigation("Countries");
                 });
 
-            modelBuilder.Entity("Models.Customer", b =>
+            modelBuilder.Entity("Models.Country", b =>
                 {
-                    b.Navigation("Sales");
+                    b.Navigation("Area");
                 });
 
             modelBuilder.Entity("Models.Product", b =>
                 {
-                    b.Navigation("Sales");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

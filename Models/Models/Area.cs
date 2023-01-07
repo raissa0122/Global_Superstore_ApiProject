@@ -20,10 +20,16 @@ namespace Models
         public string PostCode { get; set; }
 
         [Name("Market")]
-        public string Market { get; set; } 
+        public string Market { get; set; }
 
-        public List<Customer> Customer { get; set; }
+        public int? CustomerId { get; set; }
+        public int? ContinentId { get; set; }
+        public int? CountryId { get; set; }
+        public int? ProductId { get; set; }
+        public int? OrderId { get; set; }
 
-        public ICollection<Country> Countries { get; set; }
+
+
+
     }
 }
