@@ -35,36 +35,6 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(countries);
         }
 
-
-        //premesti nqkade
-        [HttpPost("add-all-countries-toDb")]
-        public IActionResult SaveCountriesToDb()
-        {
-            String filePath = @"C:\Files\Global_Superstore2.csv";
-
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                Delimiter = ","
-            };
-            //07.12.22г.
-            using (StreamReader streamReader = new StreamReader(filePath))
-            using (var csvReader = new CsvReader(streamReader, config))
-            {
-                var records = csvReader.GetRecords<AllTablesModel>().ToList();
-
-                records.ForEach(delegate (AllTablesModel currentResult)
-                {
-                    Country country = new Country();
-                    country.CountryName = currentResult.Country;
-
-                    _countryService.AddCountry(country);
-                });
-            }
-            return Ok();
-        }
-
-
-
         [HttpPost("add-country")]
         public IActionResult AddCountry([FromBody] Country country)
         {

@@ -73,6 +73,8 @@ namespace Services.ServicesForModels
             if (_customer != null)
             {
                 _customer.CustomerName = customer.CustomerName;
+                _customer.CustomerName = customer.CustomerName;
+                _customer.Segment = customer.Segment;
                 _context.SaveChanges();
             }
             return _customer;

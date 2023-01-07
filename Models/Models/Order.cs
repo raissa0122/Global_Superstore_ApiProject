@@ -1,10 +1,13 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 
 namespace Models
 {
     public class Order
     {
         public int Id { get; set; }
+
+        [Name(name: "Sales")]
         public string SalesCount { get; set; }
         public string Quantity { get; set; }
         public string Discount { get; set; }
