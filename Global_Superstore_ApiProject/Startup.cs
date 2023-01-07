@@ -78,7 +78,7 @@ namespace Global_Superstore_ApiProject
                 endpoints.MapControllers();
             });
 
-            areaService.SaveAreasToDb();
+           // areaService.SaveAreasToDb();
         }
 
     }

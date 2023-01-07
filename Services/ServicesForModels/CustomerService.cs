@@ -25,7 +25,7 @@ namespace Services.ServicesForModels
 
         public void SaveCustomersToDb()
         {
-            String filePath = @"C:\Files\Global_Superstore2.csv";
+            String filePath = @"C:\Users\Raissa\source\repos\Global_Superstore_ApiProject\Services\Files\Global_Superstore2.csv";
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {

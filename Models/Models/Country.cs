@@ -13,6 +13,6 @@ namespace Models
         public Continent Continents { get; set; }
 
 
-        public Area Area { get; set; }
+      //  public Area Area { get; set; }
     }
 }

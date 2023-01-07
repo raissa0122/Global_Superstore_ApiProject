@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.ViewModels;
@@ -24,6 +25,7 @@ namespace Global_Superstore_ApiProject.Controllers
             var allCustomers = _customerService.GetAllCustomers();
             return Ok(allCustomers);
         }
+
         [HttpGet("get-customers-by-id/{id}")]
         public IActionResult GetCustomersById(int id)
         {

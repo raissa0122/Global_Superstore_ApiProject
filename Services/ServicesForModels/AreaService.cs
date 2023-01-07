@@ -46,13 +46,15 @@ namespace Services.ServicesForModels
                     area.State = currentResult.State;
                     area.PostCode = currentResult.PostalCode;
                     area.Market = currentResult.Market;
-
+                    
+                   
                     var checkForCustomer = false;
                     var checkForContinent = false;
                     var checkForCountry = false;
                     var checkForProduct = false;
                     var checkForOrder = false;
 
+                 
                     //Customer
                     for (int i = 0; i < _context.Customers.Count(); i++)
                     {
@@ -63,7 +65,50 @@ namespace Services.ServicesForModels
                             checkForCustomer = true;
                         }
                     }
+                    //ContinentsCheck
+                    for (int i = 0; i < _context.Continents.Count(); i++)
+                    {
+                        var currentContinent = _context.Continents.ToList().ElementAt(i);
+                        if (currentContinent.ContinentName == currentResult.Region)
+                        {
+                            area.ContinentId = currentContinent.Id;
+                            checkForContinent = true;
+                        }
+                    }
+                    //CountriesCheck
+                    for (int i = 0; i < _context.Countries.Count(); i++)
+                    {
+                        var currentCountry = _context.Countries.ToList().ElementAt(i);
+                        if (currentCountry.CountryName == currentResult.Country)
+                        {
+                            area.CountryId = currentCountry.Id;
+                            checkForCountry = true;
+                        }
+                    }
+                    //ProductsCheck
+                    for (int i = 0; i < _context.Products.Count(); i++)
+                    {
+                        var currentProduct = _context.Products.ToList().ElementAt(i);
+                        if (currentProduct.ProductName == currentResult.ProductName)
+                        {
+                            area.ProductId = currentProduct.Id;
+                            checkForProduct = true;
+                        }
+                    }
+                    //OrdersCheck
+                    for (int i = 0; i < _context.Orders.Count(); i++)
+                    {
+                        var currentOrder = _context.Orders.ToList().ElementAt(i);
+                        if (currentOrder.OrderDate == currentResult.OrderDate)
+                        {
+                            area.OrderId = currentOrder.Id;
+                            checkForOrder = true;
+                        }
+                    }
 
+
+
+                    //!CustomerCheck
                     if (checkForCustomer == false)
                     {
                         Customer customer = new Customer();
@@ -77,65 +122,36 @@ namespace Services.ServicesForModels
 
                         area.CustomerId = customer.Id;
                     }
-
-                    //ContinentsCheck
-                    for (int i = 0; i < _context.Continents.Count(); i++)
-                    {
-                        var currentContinent = _context.Continents.ToList().ElementAt(i);
-                        if (currentContinent.ContinentName == currentResult.Region)
-                        {
-                            area.ContinentId = currentContinent.Id;
-                            checkForContinent = true;
-                        }
-                    }
-
+                  //!ContinentCheck
                     if (checkForContinent == false)
                     {
                         Continent continent = new Continent();
-
+                        continent.ContinentName = currentResult.Region;
 
                         _context.Continents.Add(continent);
                         _context.SaveChanges();
 
                         area.ContinentId = continent.Id;
-                    }
-
-                    //CountriesCheck
-                    for (int i = 0; i < _context.Countries.Count(); i++)
-                    {
-                        var currentCountry = _context.Countries.ToList().ElementAt(i);
-                        if (currentCountry.CountryName == currentResult.Country)
-                        {
-                            area.CountryId = currentCountry.Id;
-                            checkForCountry = true;
-                        }
-                    }
-
+                    }                  
+                    //!CountryCheck
                     if (checkForCountry == false)
                     {
                        Country country = new Country();
-
+                        country.CountryName = currentResult.Country;
 
                         _context.Countries.Add(country);
                         _context.SaveChanges();
 
                         area.CountryId = country.Id;
-                    }
-
-                    //ProductsCheck
-                    for (int i = 0; i < _context.Products.Count(); i++)
-                    {
-                        var currentProduct = _context.Products.ToList().ElementAt(i);
-                        if (currentProduct.ProductName == currentResult.ProductName)
-                        {
-                            area.ProductId = currentProduct.Id;
-                            checkForProduct = true;
-                        }
-                    }
-
+                    }                 
+                    //!ProductCheck
                     if (checkForProduct == false)
                     {
                         Product product = new Product();
+                        product.ProductName = currentResult.ProductName;
+                        product.Category = currentResult.Category;
+                        product.SubCategory = currentResult.Sub_Category;
+                        product.ProductID = currentResult.ProductID;
 
 
                         _context.Products.Add(product);
@@ -143,27 +159,42 @@ namespace Services.ServicesForModels
 
                         area.ProductId = product.Id;
                     }
-
-                    //OrdersCheck
-                    for (int i = 0; i < _context.Orders.Count(); i++)
-                    {
-                        var currentOrder = _context.Orders.ToList().ElementAt(i);
-                        if (currentOrder.OrderDate == currentResult.OrderDate)
-                        {
-                            area.OrderId = currentOrder.Id;
-                            checkForOrder = true;
-                        }
-                    }
-
+                    //!OrdersCheck
                     if (checkForOrder == false)
                     {
                         Order order = new Order();
+                        order.SalesCount = currentResult.Sales;
+                        order.Quantity = currentResult.Quantity;
+                        order.Discount = currentResult.Discount;
+                        order.Profit = currentResult.Profit;
+                        order.ShippingCost = currentResult.ShippingCost;
+                        order.OrderPriority = currentResult.OrderPriority;
+                        order.OrderID = currentResult.OrderID;
+                        order.OrderDate = currentResult.OrderDate;
+                        order.ShipDate = currentResult.ShipDate;
+                        order.ShipMode = currentResult.ShipMode;
 
 
                         _context.Orders.Add(order);
                         _context.SaveChanges();
 
                         area.OrderId = order.Id;
+                    }
+                    var checkIsItHere = false;
+                    for (int i = 0; i < _context.Areas.Count(); i++)
+                    {
+                        var currentArea = _context.Areas.ToList().ElementAt(i);
+                        if (currentArea.Sity == area.Sity)
+                        {
+                            checkIsItHere = true;
+                        }
+                    }
+
+                    if (checkIsItHere == false)
+                    {
+                        _context.Areas.Add(area);
+                        _context.SaveChanges();
+                       // AddArea(area);
                     }
                 });
             }
