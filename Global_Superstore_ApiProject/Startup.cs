@@ -39,6 +39,9 @@ namespace Global_Superstore_ApiProject
             services.AddTransient<AreaService>();
             services.AddTransient<ContinentService>();
             services.AddTransient<CountryService>();
+            services.AddTransient<CustomerService>();
+            services.AddTransient<OrderService>();
+            services.AddTransient<ProductService>();
 
 
 
@@ -49,6 +52,9 @@ namespace Global_Superstore_ApiProject
             services.AddTransient<AreaService>();
             services.AddTransient<ContinentService>();
             services.AddTransient<CountryService>();
+            services.AddTransient<CustomerService>();
+            services.AddTransient<OrderService>();
+            services.AddTransient<ProductService>();
 
 
             services.AddSwaggerGen(c =>

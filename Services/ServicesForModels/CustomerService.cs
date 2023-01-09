@@ -64,7 +64,7 @@ namespace Services.ServicesForModels
         public List<Customer> GetAllCustomers() => _context.Customers.ToList();
 
         //GetById
-        public Customer GetCustomersById(int customerId) => _context.Customers.FirstOrDefault(n => n.Id == customerId);
+        public Customer GetCustomersById(int customerId) => _context.Customers.Where(n => n.Id == customerId).FirstOrDefault();
 
         //Update
         public Customer UpdateCustomersById(int customerId, CustomerVM customer)
