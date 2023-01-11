@@ -24,12 +24,15 @@ namespace Global_Superstore_ApiProject.Controllers
             _orderService = orderService;
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-all-orders")]
         public IActionResult GetAllOrders()
         {
             var allOrders = _orderService.GetAllOrders();
             return Ok(allOrders);
         }
+
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-orders-by-id/{id}")]
         public IActionResult GetOrdersById(int id)
         {
@@ -37,6 +40,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(orders);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("add-order")]
         public IActionResult AddOrder([FromBody] Order order)
         {
@@ -44,7 +48,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPut("update-order-by-id/{id}")]
         public IActionResult UpdateOrderById(int id, [FromBody] OrderVM order)
         {
@@ -52,7 +56,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(updateOrder);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete-orders-by-id/{id}")]
         public IActionResult DeleteOrderById(int id)
         {

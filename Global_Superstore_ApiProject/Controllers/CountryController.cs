@@ -25,12 +25,15 @@ namespace Global_Superstore_ApiProject.Controllers
             _countryService = countryService;
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-all-countries")]
         public IActionResult GetAllCountries()
         {
             var allCountries = _countryService.GetAllCountries();
             return Ok(allCountries);
         }
+
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-countries-by-id/{id}")]
         public IActionResult GetCountriesById(int id)
         {
@@ -38,6 +41,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(countries);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("add-country")]
         public IActionResult AddCountry([FromBody] Country country)
         {
@@ -45,7 +49,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPut("update-country-by-id/{id}")]
         public IActionResult UpdateCountryById(int id, [FromBody] CountryVM country)
         {
@@ -53,7 +57,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(updateCountry);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete-countries-by-id/{id}")]
         public IActionResult DeleteCountryById(int id)
         {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
+using Models.Models;
 using Models.ViewModels;
 using Services.ServicesForModels;
 using System;
@@ -15,7 +16,7 @@ using System.Linq;
 
 namespace Global_Superstore_ApiProject.Controllers
 {
-  
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AreaController : ControllerBase
@@ -30,7 +31,7 @@ namespace Global_Superstore_ApiProject.Controllers
             _context = context;
            
         }
-
+        [Authorize (Roles = "admin, user")]
         [HttpGet("get-all-areas")]
         public IActionResult GetAllAreas()
         {
@@ -38,6 +39,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(allAreas);
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-areas-by-id/{id}")]
         public IActionResult GetAreasById(int id)
         {
@@ -45,35 +47,36 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(areas);
         }
 
-     /*   [HttpPost("add-all-areas-toDb")]
-        public IActionResult SaveAreasToDb()
-        {
-            String filePath = @"C:\Files\Global_Superstore2.csv";
+        /*   [HttpPost("add-all-areas-toDb")]
+           public IActionResult SaveAreasToDb()
+           {
+               String filePath = @"C:\Files\Global_Superstore2.csv";
 
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                Delimiter = ","
-            };
-            //07.12.22г.
-            using (StreamReader streamReader = new StreamReader(filePath))
-            using (var csvReader = new CsvReader(streamReader, config))
-            {
-                var records = csvReader.GetRecords<AllTablesModel>().ToList();
+               var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+               {
+                   Delimiter = ","
+               };
+               //07.12.22г.
+               using (StreamReader streamReader = new StreamReader(filePath))
+               using (var csvReader = new CsvReader(streamReader, config))
+               {
+                   var records = csvReader.GetRecords<AllTablesModel>().ToList();
 
-                records.ForEach(delegate (AllTablesModel currentResult)
-                {
-                    Area area = new Area();
-                    area.Sity = currentResult.City;
-                    area.State = currentResult.State;
-                    area.PostCode = currentResult.PostalCode;
-                    area.Market = currentResult.Market;
+                   records.ForEach(delegate (AllTablesModel currentResult)
+                   {
+                       Area area = new Area();
+                       area.Sity = currentResult.City;
+                       area.State = currentResult.State;
+                       area.PostCode = currentResult.PostalCode;
+                       area.Market = currentResult.Market;
 
-                    _areaService.AddArea(area);
-                });
-            }
-            return Ok();
-        }*/
+                       _areaService.AddArea(area);
+                   });
+               }
+               return Ok();
+           }*/
 
+        [Authorize(Roles = "admin")]
         [HttpPost("add-area")]
         public IActionResult AddArea([FromBody]Area area)
         {
@@ -81,7 +84,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPut("update-area-by-id/{id}")]
         public IActionResult UpdateAreaById(int id, [FromBody] AreaVM area)
         {
@@ -89,7 +92,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(updateArea);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete-areas-by-id/{id}")]
         public IActionResult DeleteAreaById(int id)
         {

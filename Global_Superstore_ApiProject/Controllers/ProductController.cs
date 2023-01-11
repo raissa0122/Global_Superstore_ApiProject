@@ -21,12 +21,15 @@ namespace Global_Superstore_ApiProject.Controllers
             _productService = productService;
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-all-products")]
         public IActionResult GetAllProducts()
         {
             var allProducts = _productService.GetAllProducts();
             return Ok(allProducts);
         }
+
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-products-by-id/{id}")]
         public IActionResult GetProductsById(int id)
         {
@@ -34,7 +37,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(products);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost("add-products")]
         public IActionResult AddProduct([FromBody] Product product)
         {
@@ -42,7 +45,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPut("update-product-by-id/{id}")]
         public IActionResult UpdateProductById(int id, [FromBody] ProductVM product)
         {
@@ -50,7 +53,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(updateProduct);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete-products-by-id/{id}")]
         public IActionResult DeleteProductById(int id)
         {

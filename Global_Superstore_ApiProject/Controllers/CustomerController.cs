@@ -21,6 +21,7 @@ namespace Global_Superstore_ApiProject.Controllers
             _customerService = customerService;
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-all-customers")]
         public IActionResult GetAllCustomers()
         {
@@ -28,6 +29,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(allCustomers);
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-customers-by-id/{id}")]
         public IActionResult GetCustomersById(int id)
         {
@@ -35,7 +37,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(customers);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost("add-customers")]
         public IActionResult AddCustomer([FromBody]Customer customer)
         {
@@ -43,7 +45,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPut("update-customer-by-id/{id}")]
         public IActionResult UpdateCustomerById(int id, [FromBody] CustomerVM customer)
         {
@@ -51,7 +53,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(updateCustomer);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete-customers-by-id/{id}")]
         public IActionResult DeleteCustomerById(int id)
         {

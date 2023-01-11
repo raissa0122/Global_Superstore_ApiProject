@@ -21,20 +21,23 @@ namespace Global_Superstore_ApiProject.Controllers
 
         public ContinentService _continentService;
 
- 
+
 
         public ContinentController(ContinentService continentService)
         {
             _continentService = continentService;
-           
+
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-all-continents")]
         public IActionResult GetAllContinents()
         {
             var allContinents = _continentService.GetAllContinents();
             return Ok(allContinents);
         }
+
+        [Authorize(Roles = "admin, user")]
         [HttpGet("get-continents-by-id/{id}")]
         public IActionResult GetContinentsById(int id)
         {
@@ -44,34 +47,34 @@ namespace Global_Superstore_ApiProject.Controllers
 
 
         //premesti nqkade
-      /*  [HttpPost("add-all-continents-toDb")]
-        public IActionResult SaveContinentsToDb()
-        {
-            String filePath = @"C:\Files\Global_Superstore2.csv";
+        /*  [HttpPost("add-all-continents-toDb")]
+          public IActionResult SaveContinentsToDb()
+          {
+              String filePath = @"C:\Files\Global_Superstore2.csv";
 
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                Delimiter = ","
-            };
-            //07.12.22г.
-            using (StreamReader streamReader = new StreamReader(filePath))
-            using (var csvReader = new CsvReader(streamReader, config))
-            {
-                var records = csvReader.GetRecords<AllTablesModel>().ToList();
+              var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+              {
+                  Delimiter = ","
+              };
+              //07.12.22г.
+              using (StreamReader streamReader = new StreamReader(filePath))
+              using (var csvReader = new CsvReader(streamReader, config))
+              {
+                  var records = csvReader.GetRecords<AllTablesModel>().ToList();
 
-                records.ForEach(delegate (AllTablesModel currentResult)
-                {
-                    Continent continent = new Continent();
-                    continent.ContinentName = currentResult.Region;
+                  records.ForEach(delegate (AllTablesModel currentResult)
+                  {
+                      Continent continent = new Continent();
+                      continent.ContinentName = currentResult.Region;
 
-                    _continentService.AddContinent(continent);
-                });
-            }
-            return Ok();
-        }*/
+                      _continentService.AddContinent(continent);
+                  });
+              }
+              return Ok();
+          }*/
 
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost("add-continent")]
         public IActionResult AddContinent([FromBody] Continent continent)
         {
@@ -79,7 +82,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPut("update-continent-by-id/{id}")]
         public IActionResult UpdateContinentById(int id, [FromBody] ContinentVM continent)
         {
@@ -87,7 +90,7 @@ namespace Global_Superstore_ApiProject.Controllers
             return Ok(updateContinent);
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete-continents-by-id/{id}")]
         public IActionResult DeleteContinentById(int id)
         {
