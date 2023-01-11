@@ -1,8 +1,10 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Models;
 using Models.ViewModels;
 using Services.ServicesForModels;
@@ -13,6 +15,7 @@ using System.Linq;
 
 namespace Global_Superstore_ApiProject.Controllers
 {
+  
     [Route("api/[controller]")]
     [ApiController]
     public class AreaController : ControllerBase
@@ -20,10 +23,12 @@ namespace Global_Superstore_ApiProject.Controllers
         public AreaService _areaService;
         private AppDbContext _context;
 
+
         public AreaController(AreaService areaService, AppDbContext context)
         {
             _areaService = areaService;
-            _context = context; 
+            _context = context;
+           
         }
 
         [HttpGet("get-all-areas")]

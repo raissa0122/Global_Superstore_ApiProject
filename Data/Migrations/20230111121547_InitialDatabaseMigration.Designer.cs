@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230107215733_InitialDatabaseMigration")]
+    [Migration("20230111121547_InitialDatabaseMigration")]
     partial class InitialDatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,10 +56,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId")
-                        .IsUnique()
-                        .HasFilter("[CountryId] IS NOT NULL");
 
                     b.ToTable("Areas");
                 });
@@ -139,9 +135,6 @@ namespace Data.Migrations
                     b.Property<string>("OrderPriority")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Profit")
                         .HasColumnType("nvarchar(max)");
 
@@ -161,8 +154,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
                 });
@@ -191,42 +182,13 @@ namespace Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Models.Area", b =>
-                {
-                    b.HasOne("Models.Country", null)
-                        .WithOne("Area")
-                        .HasForeignKey("Models.Area", "CountryId");
-                });
-
             modelBuilder.Entity("Models.Country", b =>
                 {
                     b.HasOne("Models.Continent", "Continents")
-                        .WithMany("Countries")
+                        .WithMany()
                         .HasForeignKey("ContinentsId");
 
                     b.Navigation("Continents");
-                });
-
-            modelBuilder.Entity("Models.Order", b =>
-                {
-                    b.HasOne("Models.Product", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("Models.Continent", b =>
-                {
-                    b.Navigation("Countries");
-                });
-
-            modelBuilder.Entity("Models.Country", b =>
-                {
-                    b.Navigation("Area");
-                });
-
-            modelBuilder.Entity("Models.Product", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

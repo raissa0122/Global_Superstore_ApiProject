@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ServicesForModels
 {
@@ -31,7 +29,8 @@ namespace Services.ServicesForModels
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                Delimiter = ","
+                Delimiter = ",",
+                MissingFieldFound = null
             };
             //07.12.22г.
             using (StreamReader streamReader = new StreamReader(filePath))
@@ -194,7 +193,7 @@ namespace Services.ServicesForModels
                     {
                         _context.Areas.Add(area);
                         _context.SaveChanges();
-                       // AddArea(area);
+                      // AddArea(area);
                     }
                 });
             }

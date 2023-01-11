@@ -2,21 +2,12 @@
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Services.ServicesForModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace Global_Superstore_ApiProject
 {
@@ -34,8 +25,8 @@ namespace Global_Superstore_ApiProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+
             services.AddTransient<AreaService>();
             services.AddTransient<ContinentService>();
             services.AddTransient<CountryService>();
@@ -56,11 +47,11 @@ namespace Global_Superstore_ApiProject
             services.AddTransient<OrderService>();
             services.AddTransient<ProductService>();
 
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Global_Superstore_ApiProject", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +61,7 @@ namespace Global_Superstore_ApiProject
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
+                //JSON format
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Global_Superstore_ApiProject v1"));
             }
 
@@ -78,7 +70,7 @@ namespace Global_Superstore_ApiProject
             app.UseRouting();
 
             app.UseAuthorization();
-
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
