@@ -1,16 +1,11 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Models.ViewModels;
+using Services.Authentication;
+using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Mvc;
-
-using Models.ViewModels;
-
-using Services.Authentication;
-
-namespace Books_Web_Api_Final_Project.Controllers
+namespace Global_Superstore_ApiProject.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly AuthenticationService authenticationService;

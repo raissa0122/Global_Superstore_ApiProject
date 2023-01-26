@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Models.Models;
 
-namespace Books_Web_Api_Final_Project
+namespace Global_Superstore_ApiProject
 {
     public static class ApplicationBuilderExtensions
     {

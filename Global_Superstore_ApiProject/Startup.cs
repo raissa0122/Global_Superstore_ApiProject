@@ -15,7 +15,7 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Models.Models;
-using Books_Web_Api_Final_Project;
+using Global_Superstore_ApiProject;
 
 namespace Global_Superstore_ApiProject
 {
@@ -107,7 +107,7 @@ namespace Global_Superstore_ApiProject
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                //JSON format
+
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Global_Superstore_ApiProject v1"));
             }
 
@@ -115,7 +115,7 @@ namespace Global_Superstore_ApiProject
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -123,7 +123,7 @@ namespace Global_Superstore_ApiProject
                 endpoints.MapControllers();
             });
 
-           // areaService.SaveAreasToDb();
+          // areaService.SaveAreasToDb();
         }
 
     }
